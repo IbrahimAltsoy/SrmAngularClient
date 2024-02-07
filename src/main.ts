@@ -13,7 +13,8 @@ bootstrapApplication(AppComponent,{
       RouterModule.forRoot([
         {path:"", loadComponent:()=>import("./app/ui/components/layouts/layouts.component").then(c=>c.LayoutsComponent),canActivateChild:[AuthGuard],
         children:[
-          {path:"", loadComponent:()=>import("./app/ui/components/blank/blank.component").then(c=>c.BlankComponent)}
+          {path:"", loadComponent:()=>import("./app/ui/components/blank/blank.component").then(c=>c.BlankComponent)},
+          {path:"customers", loadComponent:()=>import("./app/ui/components/customers/customers.component").then(c=>c.CustomersComponent)}
         ]
          },
          {path:"login", loadComponent:()=>import("./app/ui/components/auth/login/login.component").then(c=>c.LoginComponent)}

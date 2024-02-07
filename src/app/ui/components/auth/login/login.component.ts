@@ -1,28 +1,45 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ValidInputDirective } from '../../../../common/directives/valid-input.directive';
-import { GenericHttpService } from '../../../../common/services/generic-http.service';
+import { LoadingButtonComponent } from '../../../../common/components/loading-button/loading-button.component';
+import { AuthService } from '../services/auth.service';
+import { ToastrService, ToastrType } from '../../../../common/services/toastr.service';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule,FormsModule, ValidInputDirective],
+  imports: [CommonModule, RouterModule,FormsModule, ValidInputDirective,LoadingButtonComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  isloading :boolean =false;
   constructor(
-    private genericHttp: GenericHttpService
-  ){}
+    private authService: AuthService,
+    private router:Router,
+    private toastr: ToastrService
+  ){
+    toastr.toast(ToastrType.Info, "Giriş","Giriş Sayfasına Hoşgeldiniz.")
+  }
 
-login(model:any){
+login(form:NgForm){
+  this.isloading =true;
+  if(form.valid){
+    this.authService.login(form.value)
+    console.log(form.value)
+    setTimeout(() => {
+      this.isloading = false;
 
-   this.genericHttp.post("https://localhost:8080/api/Auth/Login", model, ()=>{
-    console.log(model)
-   });
+    }, 2000);
+    this.router.navigateByUrl("/")
+
+  }
+
+
+
 
 
 

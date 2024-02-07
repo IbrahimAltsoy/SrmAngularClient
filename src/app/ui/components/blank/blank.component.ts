@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ToastrService } from '../../../common/services/toastr.service';
 
 @Component({
   selector: 'app-blank',
@@ -8,6 +9,4 @@ import { RouterModule } from '@angular/router';
   templateUrl: './blank.component.html',
   styleUrl: './blank.component.css'
 })
-export class BlankComponent {
-
-}
+export class BlankComponent {}
