@@ -13,7 +13,8 @@
         <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Name: Ibrahim</a>
+
+       <p style="color: blueviolet; font-weight: bold; margin-left: 20px;">{{username}}</p>
       </div>
     </div>
     <!-- {{loginResponse.userName}} -->
@@ -42,7 +43,8 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" (click)="logout()">
+          <a class="nav-link">
+          <!-- <a class="nav-link" (click)="logout()"> -->
             <i class="nav-icon fa fa-power-off text-danger"></i>
             <p>Çıkış</p>
           </a>

@@ -16,24 +16,12 @@ import { ControlSidebarComponent } from './control-sidebar/control-sidebar.compo
   templateUrl: './layouts.component.html',
   styleUrl: './layouts.component.css'
 })
-export class LayoutsComponent implements OnInit {
- private username: string="";
+export class LayoutsComponent {
+
 constructor(
   private authService:AuthService
 ){}
-  ngOnInit(): void {
-    this.getUsername();
-  }
-  getUsername() {
-    // this.username = localStorage.getItem("accessToken")
-    // debugger
-    // return this.username;
-    // // AuthService'ten kullanıcı bilgilerini al
-    const userDataString = localStorage.getItem("accessToken");
 
-    if (userDataString) {
-      const userData = JSON.parse(userDataString);
-      this.username = userData.username;
-    }
-  }
+
+
 }

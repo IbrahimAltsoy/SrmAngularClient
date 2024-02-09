@@ -1,6 +1,7 @@
+import { Token } from "./token";
+
 export class TokenModel{
-  accessToken:string ="";
-  refreshToken:string ="";
-  expiration:string ="";
+  accessToken: Token;
+
 
 }

@@ -1,40 +1,40 @@
 import { Injectable } from '@angular/core';
-import { GenericHttpService } from '../../../../common/services/generic-http.service';
-import { UserLoginResponseModel } from '../models/user.login.Response.model';
-import { Router } from '@angular/router';
-import { CryptoService } from '../../../../common/services/crypto.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable,of } from 'rxjs';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-api:string ="https://localhost:8080/api/Auth/Login";
-private userName: string="";
-private accessToken: string | null = null;
-  constructor(
-    private httpClient:GenericHttpService,
-    private router :Router,
+  constructor(private jwtHelperService: JwtHelperService) { }
+  identityCheck(){
+    const token:string = localStorage.getItem("accessToken");
+  //  const decodetoken = this.jwtHelperService.decodeToken(token);
 
-  ) { }
-  login(model:any){
-this.httpClient.post<UserLoginResponseModel>(this.api, model, response=>{
-  const userData = {
-    username: response.userName
-  };
-  this.userName = userData.username;
-  localStorage.setItem("accessToken",JSON.stringify(userData));
-this.router.navigateByUrl("/")
+  const expirationDate:Date = this.jwtHelperService.getTokenExpirationDate(token);
+  let expired: boolean;
 
+  try{
+expired = this.jwtHelperService.isTokenExpired(token);
 
-})
   }
-  getUserName(user:string):string {
-user = this.userName;
-    return  this.userName;
+  catch{
+expired =true;
   }
-  logout(){
-    localStorage.removeItem("accessToken")
-    this.router.navigateByUrl("/login");
+  _isAuthencated = token !=null && !expired
   }
+  get isAuthencated():boolean{
+    return _isAuthencated;
+  }
+  getUserNameFromToken(accessToken: string): Observable<string> {
+    const decodedToken = this.jwtHelperService.decodeToken(accessToken);
+    const userName = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
+    return of(userName); // Return the username as an observable
+  }
+
 }
+
+
+export let _isAuthencated:boolean;

@@ -32,10 +32,9 @@ constructor(
   private customerService: CustomerService
 ){}
   ngOnInit(): void {
-   this.getAll();
+  //  this.getAll();
   }
-getAll(){
-  this.customerService.getAll(response=>this.customers = response);
-debugger
-}
+// getAll(){
+//   this.customerService.getAll(response=>this.customers = response);
+// }
 }

@@ -1,46 +1,84 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { ErrorService } from './error.service';
+import { Observable } from 'rxjs';
+import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GenericHttpService {
-  apiUrl: string = "";
-  token: string = localStorage.getItem("accessToken")?.toString();
-  constructor(
-    private httpClient: HttpClient,
-    private errorService: ErrorService
-  ) { }
-  get<T>(api: string, callBack: (res: T) => void, authorize: boolean = true, diffApi: boolean = false) {
+  constructor(private httpclient: HttpClient) { }
 
-
-    this.httpClient.get<T>(`${this.setApi(diffApi, api)}`, this.setOptions(authorize)).subscribe({
-      next: (res) =>callBack(res),
-      error: (_error:HttpErrorResponse)=> this.errorService.errorHandler(_error)
-
-    });
+  private baseUrl:string=""
+  private url (requestParameter:Partial< RequestParameter>):string{
+    return `${requestParameter.baseUrl? requestParameter.baseUrl: environment.baseUrl}/${requestParameter.controller}${requestParameter.action?`/${requestParameter.action}`:""}`
   }
+//
+// private url(controller?: string, action?: string): string {
+//   return `${environment.baseUrl}/${controller}${action ? `/${action}` : ""}`;
+// }
+get<T>(requestParameters: Partial<RequestParameter>, id?: string): Observable<T>{
+  let url: string ="";
+  if(requestParameters.fullEndPoint)
+  url = requestParameters.fullEndPoint;
+  else
+  url = `${this.url(requestParameters)}${id ? `/${id}` : ""}${requestParameters.querystring?`?${requestParameters.querystring}`:""}`;
+  return this.httpclient.get<T>(url, {headers:requestParameters.headers})
+}
 
-  post<T>(api: string, model: any, callBack: (res: T) => void, authorize: boolean = true, diffApi: boolean = false) {
+//
+// post<T>(requestParameters: Partial<RequestParameter>, body: Partial<T>) :Observable<T>{
+
+//   let url:string = "";
+//   if(requestParameters.fullEndPoint)
+//   url = requestParameters.fullEndPoint;
+//   else
+//   url = `${this.url(requestParameters)}${requestParameters.querystring?`?${requestParameters.querystring}`:""}`;
+//   return this.httpclient.post<T>(url, body,{ headers: requestParameters.headers});
+
+// }
+post<T>(requestParameter: Partial<RequestParameter>, body: Partial<T>): Observable<T> {
+  let url: string = "";
+  if (requestParameter.fullEndPoint)
+    url = requestParameter.fullEndPoint;
+  else
+    url = `${this.url(requestParameter)}${requestParameter.querystring ? `?${requestParameter.querystring}` : ""}`
+
+  return this.httpclient.post<T>(url, body, { headers: requestParameter.headers, responseType: requestParameter.responseType as 'json' });
+}
+put<T>(requestParameters: Partial<RequestParameter>, body: Partial<T>):Observable<T>{
+  let url:string = "";
+  if(requestParameters.fullEndPoint)
+  url = requestParameters.fullEndPoint;
+  else
+  url = `${this.url(requestParameters)}${requestParameters.querystring?`?${requestParameters.querystring}`:""}`;
+
+  return this.httpclient.put<T>(url,body,{headers: requestParameters.headers});
+
+}
+
+delete<T>(requestParameters:Partial<RequestParameter>,id: string): Observable<T>{
+  let url : string = "";
+  if(requestParameters.fullEndPoint)
+    url = requestParameters.fullEndPoint;
+  else
+    url = `${this.url(requestParameters)}/${id}${requestParameters.querystring?`?${requestParameters.querystring}`:""}`;
+  return this.httpclient.delete<T>(url, {headers: requestParameters.headers});
+    }
 
 
-    this.httpClient.post<T>(`${this.setApi(diffApi, api)}`, model, this.setOptions(authorize)).subscribe({
-      next: (res) =>callBack(res),
-      error: (_error:HttpErrorResponse)=> this.errorService.errorHandler(_error)
-    });
-  }
 
-  setApi(diffApi: boolean, api: string) {
-    if (diffApi)
-      return api;
-    return this.apiUrl + api;
-  }
 
-  setOptions(authorize: boolean) {
-    if (authorize)
-      return { headers: { "Authorization": `Bearer ${this.token}` } }
-    return {}
-  }
+}
+export class RequestParameter{
+  controller?: string;
+  action?: string;
+  // id?:string;
+  headers?: HttpHeaders;
+  baseUrl?:string;
+  fullEndPoint?: string;
+  querystring?:string;
+  responseType?: string = 'json';
 
 }

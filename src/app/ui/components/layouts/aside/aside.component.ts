@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {  RouterModule } from '@angular/router';
 import { Navigations } from '../../../router/navigation';
 import { AuthService } from '../../auth/services/auth.service';
@@ -12,13 +12,32 @@ import { AuthService } from '../../auth/services/auth.service';
   templateUrl: './aside.component.html',
   styleUrl: './aside.component.css'
 })
-export class AsideComponent {
+export class AsideComponent implements OnInit{
+  username: string="";
   constructor(
         private authService :AuthService
   ){}
+  ngOnInit(): void {
+    this.getUser();
+  }
 navigations = Navigations;
-logout(){
-  this.authService.logout();
+getUser() {
+  const accessToken = localStorage.getItem("accessToken");
+  this.authService.getUserNameFromToken(accessToken).subscribe(
+    username => {
+
+      this.username = username;
+      // debugger
+      return this.username;
+
+    },
+    error => {
+      console.error('Kullanıcı adı alınamadı:', error);
+    }
+  );
 }
+// logout(){
+//   this.authService.logout();
+// }
 
 }

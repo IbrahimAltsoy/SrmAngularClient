@@ -8,7 +8,7 @@
       <div class="card-body">
         <p class="login-box-msg">Giriş için bilgilerinizi doldurunuz.</p>
 
-        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+        <form #loginForm="ngForm" (ngSubmit)="login(usernameOrEmail.value, password.value)">
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Email or Username" #usernameOrEmail name="usernameOrEmail" required minlength="3" ngModel [validInput]="usernameOrEmail.validity.valid">
 
