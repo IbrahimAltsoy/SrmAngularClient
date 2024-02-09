@@ -1,25 +1,74 @@
 <app-blank title="Müsteriler" [navs]="navs">
+  <app-section *ngIf="isAddForm" sectionTitle="Şirket Ekle">
+    <form #addForm="ngForm">
+      <div class="row">
+        <div class="col-md-4">
+          <label for="identityNumber">Identity No</label>
+          <input type="text" class="form-control" #identityNumber name="identityNumber" ngModel [validInput]="identityNumber.validity.valid" required minlength="6">
+        </div>
+        <div class="col-md-4">
+          <label for="companyName">Şirket Adı</label>
+          <input type="text" class="form-control" #companyName name="companyName" ngModel [validInput]="companyName.validity.valid" required minlength="4">
+        </div>
+        <div class="col-md-4">
+          <label>İşlemler</label>
+          <button class="btn btn-outline-success w-100" (click)="createCustomer(addForm.value)">
+            <i class="fa fa-plus"></i>
+            Şirket Ekle</button>
+        </div>
+
+      </div>
+    </form>
+
+  </app-section>
   <app-section sectionTitle="Müsteri Listesi">
-    <!-- <table class="table table-bordered">
+    <div class="form-group float-left">
+      <button class="btn btn-outline-success" title="Müsteri Ekle" (click)="showAddForm()">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+    <div class="form-group float-right col-md-3">
+      <input type="search" placeholder="Şirket ara" class="form-control" [(ngModel)]="filterText">
+    </div>
+    <div class="form-group">
+
+    <table class="table table-bordered">
       <thead>
         <tr>
           <th>#</th>
           <th>Idenetity No</th>
           <th>Şirket Adı</th>
-          <th>Delete</th>
-          <th>Update</th>
+          <th>İşlemler</th>
+
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let customer of customers; let i = index">
-          <td>1</td>
+        <tr *ngFor="let customer of customers | customerPipe:filterText let i = index">
+          <td>{{ i + 1 }}</td>
           <td [innerText]="customer.identityNumber"></td>
           <td [innerText]="customer.companyName"></td>
-          <td><button>Delete</button></td>
-          <td><button>Update</button></td>
+          <td>
+            <div >
+              <button class="btn btn-outline-warning btn-sm" title="Güncelle">
+                  <i class="fa fa-edit"></i>
+              </button>
+              <button class="btn btn-outline-danger btn-sm mx-3" title="Sil">
+                  <i class="fa fa-trash"></i>
+              </button>
+          </div>
+          </td>
+
 
         </tr>
       </tbody>
-    </table> -->
+    </table>
+  </div>
+    <!-- // -->
+    <div class="pagination">
+      <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)" class="btn btn-info mr-4 mt-3">Önceki</button>
+      <span class="page mt-4" style="color: black; font-weight: bold">{{ currentPage }}</span>
+      <button [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)"  class="btn btn-info ml-4 mt-3">Sonraki</button>
+    </div>
+  <!-- // -->
   </app-section>
 </app-blank>

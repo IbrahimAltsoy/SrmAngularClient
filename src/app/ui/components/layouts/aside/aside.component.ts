@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {  RouterModule } from '@angular/router';
 import { Navigations } from '../../../router/navigation';
 import { AuthService } from '../../auth/services/auth.service';
+import { UserAuthService } from '../../auth/services/user-auth.service';
 
 
 @Component({
@@ -15,7 +16,8 @@ import { AuthService } from '../../auth/services/auth.service';
 export class AsideComponent implements OnInit{
   username: string="";
   constructor(
-        private authService :AuthService
+        private authService :AuthService,
+        private userAuthService: UserAuthService
   ){}
   ngOnInit(): void {
     this.getUser();
@@ -36,8 +38,8 @@ getUser() {
     }
   );
 }
-// logout(){
-//   this.authService.logout();
-// }
+logout(){
+  this.userAuthService.logout();
+}
 
 }

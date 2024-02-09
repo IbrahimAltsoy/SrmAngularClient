@@ -3,12 +3,16 @@ import { GenericHttpService } from '../../../../common/services/generic-http.ser
 import { Observable, firstValueFrom } from 'rxjs';
 import { TokenModel } from '../models/token.Model';
 import { SocialUser } from 'angularx-social-login';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAuthService {
-  constructor(private httpClient: GenericHttpService) { }
+  constructor(
+    private httpClient: GenericHttpService,
+    private router:Router
+    ) { }
   async login(userNameOrEmail: string,password: string, callBack?:()=>void):Promise<any> {
     const observable: Observable<any | TokenModel> = this.httpClient.post<any | TokenModel>({
       controller:"auth",
@@ -84,6 +88,11 @@ export class UserAuthService {
 
     }
    // callBack();
+
+  }
+  logout(){
+    localStorage.removeItem("accessToken")
+    this.router.navigateByUrl("/login")
 
   }
   }

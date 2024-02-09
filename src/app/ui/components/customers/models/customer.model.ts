@@ -1,5 +1,5 @@
 export class CustomerModel{
-  id:string="";
+  id?:string="";
   companyName:string="";
   identityNumber:string="";
 }

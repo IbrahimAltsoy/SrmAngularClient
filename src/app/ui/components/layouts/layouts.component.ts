@@ -18,10 +18,5 @@ import { ControlSidebarComponent } from './control-sidebar/control-sidebar.compo
 })
 export class LayoutsComponent {
 
-constructor(
-  private authService:AuthService
-){}
-
-
-
+constructor(){}
 }
