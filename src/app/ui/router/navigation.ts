@@ -4,15 +4,7 @@ export class Navigation {
   icon: string = "";
 }
 export const Navigations: Navigation[] = [
-  {
-    routerLink: "/",
-    name:" Ana Sayfa",
-    icon:"fa fa-home"
-  },
-  {
-    routerLink: "/customers",
-    name:" Müsteriler",
-    icon:"fa fa-users"
-},
+  { routerLink: "/", name:" Ana Sayfa",icon:"fa fa-home"},
+  { routerLink: "/customers", name:" Müsteriler", icon:"fa fa-users"},
+  { routerLink: "/employies", name:" Çalışanlar", icon:"fa fa-address-card"},
 ]
-

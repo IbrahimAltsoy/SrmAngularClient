@@ -12,15 +12,48 @@
         </div>
         <div class="col-md-4">
           <label>İşlemler</label>
-          <button class="btn btn-outline-success w-100" (click)="createCustomer(addForm.value)">
+          <app-loading-button btnName="Ekle" [form]="addForm" [isloading]="isloading" btnLoadingName="Ekleniyor..."
+            (click)="createCustomer(addForm.value)"> </app-loading-button>
+          <!-- <button class="btn btn-outline-success w-100" (click)="createCustomer(addForm.value)">
+                                                                                                                <i class="fa fa-plus"></i>
+                                                                                                                Şirket Ekle</button> -->
+          </div>
+          
+          </div>
+          </form>
+          
+          </app-section>
+          <!-- //Start Update Form -->
+          <app-section *ngIf="isUpdateForm" sectionTitle="Şirket Güncelleme">
+            <form #isUpdateForm="ngForm">
+              <div class="row">
+                <input type="hidden" class="form-control" #id name="id" [(ngModel)]="updateCustomer.id">
+                <div class="col-md-4">
+                  <label for="identityNumber">Identity No</label>
+                  <input type="text" class="form-control" #identityNumber name="identityNumber"
+                    [(ngModel)]="updateCustomer.identityNumber" [validInput]="identityNumber.validity.valid" required
+                    minlength="6">
+                </div>
+                <div class="col-md-4">
+                  <label for="companyName">Şirket Adı</label>
+                  <input type="text" class="form-control" #companyName name="companyName" [(ngModel)]="updateCustomer.companyName"
+                    [validInput]="companyName.validity.valid" required minlength="4">
+                </div>
+                <div class="col-md-4">
+                  <label>İşlemler</label>
+                  <app-loading-button btnName="Güncelle" [form]="isUpdateForm" [isloading]="isloading"
+                    btnLoadingName="Güncelleniyor..." (click)="update(isUpdateForm.value)"> </app-loading-button>
+                  <!-- <button class="btn btn-outline-success w-100" (click)="createCustomer(addForm.value)">
             <i class="fa fa-plus"></i>
-            Şirket Ekle</button>
+            Şirket Ekle</button> -->
         </div>
 
       </div>
     </form>
 
   </app-section>
+  <!-- Finish Update Form -->
+  <!-- Read Form Start -->
   <app-section sectionTitle="Müsteri Listesi">
     <div class="form-group float-left">
       <button class="btn btn-outline-success" title="Müsteri Ekle" (click)="showAddForm()">
@@ -49,10 +82,10 @@
           <td [innerText]="customer.companyName"></td>
           <td>
             <div >
-              <button class="btn btn-outline-warning btn-sm" title="Güncelle">
+              <button class="btn btn-outline-warning btn-sm" title="Güncelle" (click)="get(customer)">
                   <i class="fa fa-edit"></i>
               </button>
-              <button class="btn btn-outline-danger btn-sm mx-3" title="Sil">
+              <button class="btn btn-outline-danger btn-sm mx-3" title="Sil" (click)="remove(customer.id)">
                   <i class="fa fa-trash"></i>
               </button>
           </div>
@@ -71,4 +104,5 @@
     </div>
   <!-- // -->
   </app-section>
+  <!-- Read Form Finish -->
 </app-blank>
