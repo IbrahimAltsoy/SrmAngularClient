@@ -1,4 +1,5 @@
 <app-blank title="Müsteriler" [navs]="navs">
+  <!-- Added Form Start-->
   <app-section *ngIf="isAddForm" sectionTitle="Şirket Ekle">
     <form #addForm="ngForm">
       <div class="row">
@@ -18,10 +19,10 @@
                                                                                                                 <i class="fa fa-plus"></i>
                                                                                                                 Şirket Ekle</button> -->
           </div>
-          
+
           </div>
           </form>
-          
+
           </app-section>
           <!-- //Start Update Form -->
           <app-section *ngIf="isUpdateForm" sectionTitle="Şirket Güncelleme">
@@ -53,6 +54,7 @@
 
   </app-section>
   <!-- Finish Update Form -->
+  <!-- Added Form Finish-->
   <!-- Read Form Start -->
   <app-section sectionTitle="Müsteri Listesi">
     <div class="form-group float-left">

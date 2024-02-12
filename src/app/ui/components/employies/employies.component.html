@@ -1,4 +1,89 @@
 <app-blank [navs]="navs">
+  <!-- Start Added Update Form -->
+  <app-section *ngIf="isAddForm" sectionTitle="Şirket Ekle">
+    <form #addForm="ngForm">
+      <div class="row">
+        <div class="col-md-4">
+          <label for="identityNumber">Identity No</label>
+          <input type="text" class="form-control" #identityNumber name="identityNumber" ngModel
+            [validInput]="identityNumber.validity.valid" required minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="name">Ad</label>
+          <input type="text" class="form-control" #name name="name" ngModel [validInput]="name.validity.valid" required
+            minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="surname">Soyad</label>
+          <input type="text" class="form-control" #surname name="surname" ngModel [validInput]="surname.validity.valid"
+            required minlength="3">
+        </div>
+  
+        <div class="col-md-4">
+          <label for="phone">Telefon</label>
+          <input type="text" class="form-control" #phone name="phone" ngModel [validInput]="phone.validity.valid" required
+            minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" #email name="email" ngModel [validInput]="email.validity.valid"
+            required minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="photoPath">Fotoğraf</label>
+          <input type="text" class="form-control" #photoPath name="photoPath" ngModel
+            [validInput]="photoPath.validity.valid" required minlength="3">
+        </div>
+  
+        <div class="col-md-4">
+          <label>İşlemler</label>
+          <app-loading-button btnName="Ekle" [form]="addForm" [isloading]="isloading" btnLoadingName="Ekleniyor..."
+            (click)="createEmployee(addForm.value)"> </app-loading-button>
+          <!-- <button class="btn btn-outline-success w-100" (click)="createCustomer(addForm.value)">
+                                                                                                                                                        <i class="fa fa-plus"></i>
+                                                                                                                                                        Şirket Ekle</button> -->
+        </div>
+  
+      </div>
+    </form>
+  
+  </app-section>
+  <!-- //Start Update Form -->
+  <app-section *ngIf="isUpdateForm" sectionTitle="Şirket Güncelleme">
+    <form #isUpdateForm="ngForm">
+      <div class="row">
+        <input type="hidden" class="form-control" #id name="id" [(ngModel)]="updateEmployee.id">
+        <div class="col-md-4">
+          <label for="phone">Telefon</label>
+          <input type="text" class="form-control" #phone name="phone" [(ngModel)]="updateEmployee.phone"
+            [validInput]="phone.validity.valid" required minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" #email name="email" [(ngModel)]="updateEmployee.email"
+            [validInput]="email.validity.valid" required minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="departmentId">Departman</label>
+          <input type="text" class="form-control" #departmentId name="departmentId"
+            [(ngModel)]="updateEmployee.departmentId" [validInput]="email.validity.valid" required>
+        </div>
+        <div class="col-md-4">
+          <label for="photoPath">Fotoğraf</label>
+          <input type="text" class="form-control" #photoPath name="photoPath" [(ngModel)]="updateEmployee.photoPath"
+            [validInput]="photoPath.validity.valid" required minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label>İşlemler</label>
+          <app-loading-button btnName="Güncelle" [form]="isUpdateForm" [isloading]="isloading"
+            btnLoadingName="Güncelleniyor..." (click)="update(isUpdateForm.value)"> </app-loading-button>
+        </div>
+      </div>
+    </form>
+  
+  </app-section>
+  <!-- Finish Added Update Form -->
+  <!-- Read Employee Start -->
   <app-section sectionTitle="Çalışan Listesi">
     <div class="form-group float-left">
       <button class="btn btn-outline-success" title="Çalışan Ekle" (click)="showAddForm()">
@@ -15,10 +100,12 @@
           <tr>
             <th>#</th>
             <th>Resim</th>
+            <th>Identity</th>
             <th>Ad</th>
             <th>Soyad</th>
             <th>Telefon</th>
             <th>Email</th>
+            <th>Departman</th>
             <th>İşlemler</th>
 
           </tr>
@@ -27,12 +114,14 @@
           <tr *ngFor="let employee of employies | employeePipe:filterText let i = index">
             <td>{{ i + 1 }}</td>
             <td>
-              <img src="{{employee.photoPath}}" alt="" style="height: 50px;width: 50px;">
+              <img src="{{employee.photoPath}}" alt="" style="height: 60px;width: 60px; border-radius: 50%;">
             </td>
+            <td [innerText]="employee.identityNumber"></td>
             <td [innerText]="employee.name"></td>
             <td [innerText]="employee.surname"></td>
             <td [innerText]="employee.phone"></td>
             <td [innerText]="employee.email"></td>
+            <td [innerText]="employee.departmentId"></td>
             <td>
               <div>
                 <button class="btn btn-outline-warning btn-sm" title="Güncelle" (click)="get(employee)">
@@ -59,4 +148,5 @@
     </div>
     <!-- // -->
   </app-section>
+    <!-- Read Employee Finish -->
 </app-blank>>

@@ -80,9 +80,6 @@ this.toastr.toast(ToastrType.Error, "Başarısız", "Şirket eklenemedi")
     this.isloading=false;
      this.isAddForm =false;
     this.getCustomers();
-
-
-
   }
   showAddForm(){
 this.isAddForm = true;

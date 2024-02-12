@@ -23,7 +23,11 @@ bootstrapApplication(AppComponent,{
         children:[
           {path:"", loadComponent:()=>import("./app/ui/components/blank/blank.component").then(c=>c.BlankComponent)},
           {path:"customers", loadComponent:()=>import("./app/ui/components/customers/customers.component").then(c=>c.CustomersComponent)},
-          {path:"employies", loadComponent:()=>import("./app/ui/components/employies/employies.component").then(c=>c.EmployiesComponent)}
+          {path:"employies", loadComponent:()=>import("./app/ui/components/employies/employies.component").then(c=>c.EmployiesComponent)},
+          {path:"departments", loadComponent:()=>import("./app/ui/components/department/department.component").then(c=>c.DepartmentComponent)},
+          {path:"requests", loadComponent:()=>import("./app/ui/components/requests/requests.component").then(c=>c.RequestsComponent)},
+          {path:"sales", loadComponent:()=>import("./app/ui/components/sales/sales.component").then(c=>c.SalesComponent)},
+          {path:"users", loadComponent:()=>import("./app/ui/components/user/user.component").then(c=>c.UserComponent)}
         ]
          },
          {path:"login", loadComponent:()=>import("./app/ui/components/auth/login/login.component").then(c=>c.LoginComponent)}

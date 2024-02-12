@@ -1,0 +1,176 @@
+<app-blank title="Satışlar">
+  <!-- Start Update Sales Component -->
+  <app-section *ngIf="isUpdateForm" sectionTitle="Satış Güncelleme">
+    <form #isUpdateForm="ngForm">
+      <div class="row">
+        <input type="hidden" class="form-control" #id name="id" [(ngModel)]="updateSales.id">
+        <div class="col-md-4">
+          <label for="name">Ad</label>
+          <input type="text" class="form-control" #name name="name" [(ngModel)]="updateSales.name"
+            [validInput]="name.validity.valid" required minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="saleDate">Tarih</label>
+          <input type="date" class="form-control" #saleDate name="saleDate" [(ngModel)]="updateSales.saleDate"
+            [validInput]="saleDate.validity.valid" required minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="saleAmount">Ücret</label>
+          <input type="text" class="form-control" #saleAmount name="saleAmount" [(ngModel)]="updateSales.saleAmount"
+            [validInput]="saleAmount.validity.valid" required minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="description">Ücret</label>
+          <input type="text" class="form-control" #description name="description" [(ngModel)]="updateSales.description"
+            [validInput]="description.validity.valid" required minlength="3">
+        </div>
+
+        <div class="col-md-4">
+          <label>İşlemler</label>
+          <app-loading-button btnName="Güncelle" [form]="isUpdateForm" [isloading]="isloading"
+            btnLoadingName="Güncelleniyor..." (click)="update(isUpdateForm.value)"> </app-loading-button>
+        </div>
+      </div>
+    </form>
+
+  </app-section>
+  <!-- Start Update Sales Component -->
+  <!-- Start Add Sales Component -->
+  <app-section *ngIf="isAddForm" sectionTitle="Satış Ekle">
+    <form #addForm="ngForm">
+      <div class="row">
+        <div class="col-md-4">
+          <label for="name">Ad</label>
+          <input type="text" class="form-control" #name name="name" ngModel [validInput]="name.validity.valid" required
+            minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="description">Açıklama</label>
+          <input type="text" class="form-control" #description name="description" ngModel
+            [validInput]="description.validity.valid" required minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="employeeUserId">Çalışan Id</label>
+          <input type="number" class="form-control" #employeeUserId name="employeeUserId" ngModel required min="0">
+        </div>
+
+        <div class="col-md-4">
+          <label for="saleDate">Tarih</label>
+          <input type="date" class="form-control" #saleDate name="saleDate" ngModel
+            [validInput]="saleDate.validity.valid" required minlength="3">
+        </div>
+        <div class="col-md-4">
+          <label for="saleAmount">Fiyat</label>
+          <input type="number" class="form-control" #saleAmount name="saleAmount" ngModel required min="0">
+        </div>
+
+
+        <div class="col-md-4">
+          <label>İşlemler</label>
+          <app-loading-button btnName="Ekle" [form]="addForm" [isloading]="isloading" btnLoadingName="Ekleniyor..."
+            (click)="createSales(addForm.value)"> </app-loading-button>
+
+        </div>
+
+      </div>
+    </form>
+
+  </app-section>
+  <!-- Start Add Sales Component -->
+  <!-- Start Sales Read Component -->
+  <app-section sectionTitle="Satış Listesi">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="form-group float-left">
+                <button class="btn btn-outline-success" title="Çalışan Ekle" (click)="showAddForm()">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-bordered table-hover">
+                  <!-- id="example2" -->
+                  <thead>
+                    <tr>
+
+                      <th>Ürün Adı</th>
+                      <th>Açıklama</th>
+                      <th>Tutarı</th>
+                      <th>Tarih</th>
+                      <th>İstek</th>
+                      <th>Satış Temsilcisi</th>
+                      <th>İşlemler</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let sale of sales | salesPipe:filterText let i = index">
+                    <tr>
+
+                      <td [innerText]="sale.name"></td>
+                      <td>{{sale.description}}</td>
+                      <td [innerText]="sale.saleAmount + ' ₺'"></td>
+                      <td>
+                        {{ sale.saleDate.substring(8,10) }}/{{ sale.saleDate.substring(5,7) }}/{{
+                        sale.saleDate.substring(0,4) }}
+                      </td>
+                      <td>
+                        <ng-container *ngIf="sale.requestDescription.length === 0">
+                          <span>Bilgi Yok</span>
+                        </ng-container>
+                        <ng-container
+                          *ngIf="sale.requestDescription.length > 0 && sale.requestDescription.length <= 15">
+                          <span>{{ sale.requestDescription }}</span>
+                        </ng-container>
+                        <ng-container *ngIf="sale.requestDescription.length > 15">
+                          <span>{{ sale.requestDescription.substring(0, 15) }}</span>
+                        </ng-container>
+                      </td>
+                      <td>{{sale.employeeName}}</td>
+
+                      <td>
+
+                        <div style="width: 100px;">
+                          <button class="btn btn-outline-warning btn-sm" title="Güncelle" (click)="get(sale)">
+                            <i class="fa fa-edit"></i>
+                          </button>
+                          <button class="btn btn-outline-danger btn-sm mx-3" title="Sil" (click)="remove(sale.id)">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                  </tbody>
+                  <!-- <tfoot>
+                    <tr>
+                      <th>Rendering engine</th>
+                      <th>Browser</th>
+                      <th>Platform(s)</th>
+                      <th>Engine version</th>
+                      <th>CSS grade</th>
+                      <th>CSS grade</th>
+                      <th>CSS grade</th>
+                    </tr>
+                  </tfoot> -->
+                </table>
+              </div>
+
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+  </app-section>
+  <!-- Finish Sales Read Component -->
+</app-blank>

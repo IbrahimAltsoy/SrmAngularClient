@@ -1,33 +1,34 @@
 import { Injectable, Input } from '@angular/core';
 import { GenericHttpService } from '../../../../common/services/generic-http.service';
 import { ToastrService, ToastrType } from '../../../../common/services/toastr.service';
-import { EmployiesModel } from '../models/employies.model';
+import { SalesModul } from '../models/sales.modul';
 import { Observable, firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { EmployeeUpdateModel } from '../models/employee.update.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployiesService {
+export class SalesService {
 
   constructor(
     private httpClient:GenericHttpService,
     private toastrService: ToastrService
   ) { }
   @Input() id:string;
-  read(page: number = 0, size: number = 5): Promise<{ totalEmployiesCount: number, employies: EmployiesModel[] }> {
-    const result: Observable<{ totalEmployiesCount: number, employies: EmployiesModel[] }> = this.httpClient.get<{ totalEmployiesCount: number, employies: EmployiesModel[] }>({
-      controller: "employies",
+  read(page: number = 0, size: number = 5): Promise<{ totalSalesCount: number, sales: SalesModul[] }> {
+    const result: Observable<{ totalSalesCount: number, sales: SalesModul[] }> = this.httpClient.get<{ totalSalesCount: number, sales: SalesModul[] }>({
+      controller: "sales",
       querystring: `page=${page}&size=${size}`
     });
     return result.toPromise();
 }
-create(employee: EmployiesModel, successCallBack?: (result:any) => void, errorCallBack?: (errorMessage: string) => void){
+
+
+create(sales: SalesModul, successCallBack?: (result:any) => void, errorCallBack?: (errorMessage: string) => void){
 
   this.httpClient.post({
-    controller: "employies"
-  }, employee)
+    controller: "sales"
+  }, sales)
     .subscribe(result => {
       successCallBack(result);
     },(errorResponse:HttpErrorResponse)=>{
@@ -46,24 +47,24 @@ create(employee: EmployiesModel, successCallBack?: (result:any) => void, errorCa
     });
 
   }
+  //
   async remove(id:string,successCallBack?: () => void, errorCallBack?: (errorMessage:string) => void){
     const deleteObservable: Observable<any>= this.httpClient.delete<any>({
-       controller: "employies",
+       controller: "sales",
      },id);
      if(deleteObservable){
-      this.toastrService.toast(ToastrType.Success, "Başarılı", `${id} id li çalışan bilgisi başarılı bir şekilde silindi.`)
+      this.toastrService.toast(ToastrType.Success, "Başarılı", `${id} id li satış başarılı bir şekilde silindi.`)
       await firstValueFrom(deleteObservable);
     }
     else{
-      this.toastrService.toast(ToastrType.Success, "Başarılı", `Çalışan bilgisi silinemedi.`)
+      this.toastrService.toast(ToastrType.Success, "Başarılı", `Satş ürün bilgisi silinemedi.`)
     }
 
 }
-async update(model: EmployeeUpdateModel, successCallBack?: () => void):Promise<void> {
-  const observable:Observable<any> = this.httpClient.put({
-            controller: "employies"
-          },model);
-          await firstValueFrom(observable);
-        }
-}
-
+  async update(model: SalesModul, successCallBack?: () => void):Promise<void> {
+const observable:Observable<any> = this.httpClient.put({
+          controller: "sales"
+        },model);
+        await firstValueFrom(observable);
+      }
+  }
