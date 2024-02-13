@@ -1,1 +1,154 @@
-<p>requests works!</p>
+<app-blank title="Istekler">
+  <!-- Start update request -->
+  <app-section *ngIf="isUpdateForm" sectionTitle="Istek Güncelleme">
+    <form #isUpdateForm="ngForm">
+      <div class="row">
+        <input type="hidden" class="form-control" #id name="id" [(ngModel)]="updateReuest.id">
+        <!-- <input type="hidden" class="form-control" #id name="id" [(ngModel)]="updateReuest.id">
+        <input type="hidden" class="form-control" #id name="id" [(ngModel)]="updateReuest.id"> -->
+
+        <div class="col-md-4">
+          <label for="description">description</label>
+          <input type="text" class="form-control" #description name="description" [(ngModel)]="updateReuest.description"
+            [validInput]="description.validity.valid" required minlength="6">
+        </div>
+        <div class="col-md-4">
+          <label for="employeeUserId">employeeUserId</label>
+          <input type="text" class="form-control" #employeeUserId name="employeeUserId"
+            [(ngModel)]="updateReuest.employeeUserId" [validInput]="employeeUserId.validity.valid" required>
+        </div>
+        <div class="col-md-4">
+          <label for="customerUserId">customerUserId</label>
+          <input type="text" class="form-control" #customerUserId name="customerUserId"
+            [(ngModel)]="updateReuest.customerUserId" [validInput]="customerUserId.validity.valid" required>
+        </div>
+        <div class="col-md-4">
+          <label for="requestStatusId">requestStatusId</label>
+          <input type="text" class="form-control" #requestStatusId name="requestStatusId"
+            [(ngModel)]="updateReuest.requestStatusId" [validInput]="requestStatusId.validity.valid" required>
+        </div>
+        <div class="col-md-4">
+          <label>İşlemler</label>
+          <app-loading-button btnName="Güncelle" [form]="isUpdateForm" [isloading]="isloading"
+            btnLoadingName="Güncelleniyor..." (click)="update(isUpdateForm.value)"> </app-loading-button>
+          <!-- <button class="btn btn-outline-success w-100" (click)="createCustomer(addForm.value)">
+    <i class="fa fa-plus"></i>
+    Şirket Ekle</button> -->
+        </div>
+
+      </div>
+    </form>
+
+  </app-section>
+  <!-- Finish update request -->
+  <!-- Start add requests -->
+  <app-section *ngIf="isAddForm" sectionTitle="Istek Ekle">
+    <form #addForm="ngForm">
+      <div class="row">
+        <div class="col-md-4">
+          <label for="customerUserId">customerUserId</label>
+          <input type="text" class="form-control" #customerUserId name="customerUserId" ngModel
+            [validInput]="customerUserId.validity.valid" required>
+        </div>
+        <div class="col-md-4">
+          <label for="employeeUserId">employeeUserId</label>
+          <input type="text" class="form-control" #employeeUserId name="employeeUserId" ngModel
+            [validInput]="employeeUserId.validity.valid" required>
+        </div>
+        <div class="col-md-4">
+          <label for="requestStatusId">requestStatusId</label>
+          <input type="text" class="form-control" #requestStatusId name="requestStatusId" ngModel
+            [validInput]="requestStatusId.validity.valid" required>
+        </div>
+        <!-- <div class="col-md-4">
+          <label for="requestStatusId">requestStatusId</label>
+          <input type="checkbox" class="form-check-input" id="requestStatusId" name="requestStatusId" ngModel required>
+        </div> -->
+        <div class="col-md-4">
+          <label for="description">description</label>
+          <input type="text" class="form-control" #description name="description" ngModel
+            [validInput]="description.validity.valid" required minlength="4">
+        </div>
+        <div class="col-md-4">
+          <label>İşlemler</label>
+          <app-loading-button btnName="Ekle" [form]="addForm" [isloading]="isloading" btnLoadingName="Ekleniyor..."
+            (click)="createRequest(addForm.value)"> </app-loading-button>
+          <!-- <button class="btn btn-outline-success w-100" (click)="createCustomer(addForm.value)">
+                                                                                                                <i class="fa fa-plus"></i>
+                                                                                                                Şirket Ekle</button> -->
+        </div>
+
+      </div>
+    </form>
+
+  </app-section>
+  <!-- Finish add requests -->
+  <!-- Start read requests -->
+  <app-section sectionTitle="Istek Listesi">
+    <div class="form-group float-left">
+      <button class="btn btn-outline-success" title="İstek Ekle" (click)="showAddForm()">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+    <div class="form-group float-right col-md-3">
+      <input type="search" placeholder="istek ara" class="form-control" [(ngModel)]="filterText">
+    </div>
+    <div class="form-group">
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Açıklama</th>
+            <th>RequestStatusId</th>
+            <th>EmployeeUserId</th>
+            <th>CustomerUserId</th>
+            <!-- <th>x</th>
+            <th>x</th> -->
+            <th>İşlemler</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let request of requests | requestPipe:filterText let i = index">
+            <td>{{ i + 1 }}</td>
+            <td [innerText]="request.description"></td>
+            <td>
+              <div
+                [ngClass]="{'progress-bar': true, 'bg-success': request.requestStatusId === 1, 'bg-danger': request.requestStatusId !== 1}"
+                [style.width.%]="request.requestStatusId === 1 ? 50 : 50">
+                <span class="visually-hidden">{{ request.requestStatusId === 1 ? 'True' : 'False' }}</span>
+              </div>
+            </td>
+            <td [innerText]="request.employeeName"></td>
+            <td [innerText]="request.customerName"></td>
+            <!-- <td>{{request.customerUserId}}</td>
+            <td>{{request.employeeUserId}}</td> -->
+            <td style="width:120px;">
+              <div>
+                <button class="btn btn-outline-warning btn-sm" title="Güncelle" (click)="get(request)">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm mx-3" title="Sil" (click)="remove(request.id)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- // -->
+    <div class="pagination">
+      <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)"
+        class="btn btn-info mr-4 mt-3">Önceki</button>
+      <span class="page mt-4" style="color: black; font-weight: bold">{{ currentPage }}</span>
+      <button [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)"
+        class="btn btn-info ml-4 mt-3">Sonraki</button>
+    </div>
+    <!-- // -->
+  </app-section>
+  <!-- Finish read requests -->
+</app-blank>

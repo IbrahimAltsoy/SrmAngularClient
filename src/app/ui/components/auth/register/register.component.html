@@ -1,0 +1,117 @@
+<body class="hold-transition register-page">
+  <div class="register-box">
+    <div class="register-logo">
+      <a routerLink="/login"><b>Srm</b>Client</a>
+    </div>
+
+    <div class="card">
+      <div class="card-body register-card-body">
+        <p class="login-box-msg">Üyelik için kayıt ol</p>
+
+        <form #addForm="ngForm">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" #name name="name" ngModel [validInput]="name.validity.valid"
+              placeholder="Ad" minlength="3" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Soyad" #surname name="surname" ngModel
+              [validInput]="surname.validity.valid" required="">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-id-badge"></span>
+              </div>
+            </div>
+
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Kullanıcı Adı" #userName name="userName" ngModel
+              [validInput]="userName.validity.valid" required="">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user-plus"></span>
+              </div>
+            </div>
+
+          </div>
+          <div class="input-group mb-3">
+            <input type="phone" class="form-control" placeholder="Telefon Numarası" #phoneNumber name="phoneNumber"
+              ngModel [validInput]="phoneNumber.validity.valid" minlength="10" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-phone"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Email" #email name="email" ngModel
+              [validInput]="email.validity.valid" [minlength]="3" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Şifre" #password name="password" ngModel
+              [validInput]="password.validity.valid" minlength="6" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Şifre Tekrar" #passwordConfirm
+              name="passwordConfirm" ngModel [validInput]="passwordConfirm.validity.valid" minlength="6" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="icheck-primary">
+              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+              <label for="agreeTerms">
+                Kullanıcı sözleşmesini kabul ediyorum.
+                <!-- <a href="#">terms</a> -->
+              </label>
+            </div>
+            <!-- /.col -->
+
+            <!-- <button type="submit" class="btn btn-primary btn-block btn-flat">Kayıt Ol</button> -->
+            <app-loading-button btnName="Kayıt Ol" [form]="addForm" [isloading]="isloading"
+              btnLoadingName="Kayıt olunuyor..." (click)="register(addForm.value)"
+              class="btn btn-primary btn-block btn-flat"> </app-loading-button>
+            <a href="#" class="btn btn-block btn-danger">
+              <i class="fab fa-google-plus mr-2"></i>
+              Google+ ile Kayıt ol
+            </a>
+
+            <!-- /.col -->
+          </div>
+        </form>
+
+        <div class="social-auth-links text-center">
+          <!-- <a href="#" class="btn btn-block btn-danger">
+            <i class="fab fa-google-plus mr-2"></i>
+            Google+ ile Kayıt ol
+          </a> -->
+        </div>
+
+        <a routerLink="/login" class="text-center">Giriş için Tıklayınız.</a>
+      </div>
+      <!-- /.form-box -->
+    </div><!-- /.card -->
+  </div>
+
+
+
+</body>

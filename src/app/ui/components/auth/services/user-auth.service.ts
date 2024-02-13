@@ -4,6 +4,7 @@ import { Observable, firstValueFrom } from 'rxjs';
 import { TokenModel } from '../models/token.Model';
 import { SocialUser } from 'angularx-social-login';
 import { Router } from '@angular/router';
+import { RegisterUserModel } from '../register/models/register.user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +90,13 @@ export class UserAuthService {
     }
    // callBack();
 
+  }
+  async register(user:RegisterUserModel):Promise<RegisterUserModel>{
+    const observable:Observable< RegisterUserModel> = this.httpClient.post<RegisterUserModel>({
+      controller:"user"
+    },user);
+
+return await firstValueFrom(observable) as RegisterUserModel;
   }
   logout(){
     localStorage.removeItem("accessToken")

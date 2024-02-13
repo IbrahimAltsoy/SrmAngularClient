@@ -30,7 +30,8 @@ bootstrapApplication(AppComponent,{
           {path:"users", loadComponent:()=>import("./app/ui/components/user/user.component").then(c=>c.UserComponent)}
         ]
          },
-         {path:"login", loadComponent:()=>import("./app/ui/components/auth/login/login.component").then(c=>c.LoginComponent)}
+         {path:"login", loadComponent:()=>import("./app/ui/components/auth/login/login.component").then(c=>c.LoginComponent)},
+         {path:"register", loadComponent:()=>import("./app/ui/components/auth/register/register.component").then(c=>c.RegisterComponent)}
 
       ])
     )
