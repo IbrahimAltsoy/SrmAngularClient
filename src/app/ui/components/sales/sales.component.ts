@@ -46,7 +46,7 @@ export class SalesComponent {
 
     async getSales(){
 
-      const response = await this.salesService.read(this.currentPage, this.pageSize);
+      const response = await this.salesService.read(this.currentPage-1, this.pageSize);
       this.sales = response.sales;
       this.totalItems = response.totalSalesCount;
       this.totalPages = Math.ceil(this.totalItems / this.pageSize);

@@ -56,7 +56,7 @@ constructor(
 
   async getCustomers(){
 
-    const response = await this.customerService.read(this.currentPage, this.pageSize);
+    const response = await this.customerService.read(this.currentPage-1, this.pageSize);
     this.customers = response.customers;
     this.totalItems = response.totalCustomerCount;
     this.totalPages = Math.ceil(this.totalItems / this.pageSize);
@@ -72,14 +72,17 @@ constructor(
     createCustomer.identityNumber = model.identityNumber;
     createCustomer.companyName = model.companyName;
     this.customerService.create(createCustomer, (result:any)=>{
+
       this.toastr.toast(ToastrType.Success, "Başarılı", `${model.identityNumber} nolu şirket eklendi`)
     }, (errormessage:any)=>{
 this.toastr.toast(ToastrType.Error, "Başarısız", "Şirket eklenemedi")
     });
     this.created_Customer.emit(createCustomer);
-    this.isloading=false;
-     this.isAddForm =false;
     this.getCustomers();
+    this.isloading=false;
+
+     this.isAddForm =false;
+
   }
   showAddForm(){
 this.isAddForm = true;

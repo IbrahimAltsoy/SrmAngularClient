@@ -47,7 +47,7 @@ constructor(
 
   async getRequests(){
 
-    const response = await this.requestService.read(this.currentPage, this.pageSize);
+    const response = await this.requestService.read(this.currentPage-1, this.pageSize);
     this.requests = response.requests;
     this.totalItems = response.totalRequestCount;
     this.totalPages = Math.ceil(this.totalItems / this.pageSize);

@@ -1,67 +1,87 @@
-<app-blank title="Departman">
-  <app-section sectionTitle="Departman Listesi">
+<app-blank title="Istekler">
+  <!-- Start update department -->
+  <app-section *ngIf="isUpdateForm" sectionTitle="Departman Güncelleme">
+    <form #isUpdateForm="ngForm">
+      <div class="row">
+        <input type="hidden" class="form-control" #id name="id" [(ngModel)]="updateDepartment.id">
 
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">DataTable with minimal features & hover style</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                  <thead>
-                    <tr>
-                      <th>Rendering engine</th>
-                      <th>Browser</th>
-                      <th>Platform(s)</th>
-                      <th>Engine version</th>
-                      <th>CSS grade</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                    </tr>
-
-
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th>Rendering engine</th>
-                      <th>Browser</th>
-                      <th>Platform(s)</th>
-                      <th>Engine version</th>
-                      <th>CSS grade</th>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
-
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
+        <div class="col-md-4">
+          <label for="name">Departmen Adı</label>
+          <input type="text" class="form-control" #name name="name" [(ngModel)]="updateDepartment.name"
+            [validInput]="name.validity.valid" required minlength="6">
         </div>
-        <!-- /.row -->
+        
+        <div class="col-md-4">
+          <label>İşlemler</label>
+          <app-loading-button btnName="Güncelle" [form]="isUpdateForm" [isloading]="isloading" btnLoadingName="Güncelleniyor..."
+            (click)="update(isUpdateForm.value)"> </app-loading-button>
+        </div>
+        
+        </div>
+        </form>
+        
+        </app-section>
+        
+        <app-section *ngIf="isAddForm" sectionTitle="Departman Ekle">
+          <form #addForm="ngForm">
+            <div class="row">
+        <div class="col-md-4">
+          <label for="name">Departman Adı</label>
+          <input type="text" class="form-control" #name name="name" ngModel [validInput]="name.validity.valid" required
+            minlength="3" required>
+        </div>
+        <div class="col-md-4">
+          <label>İşlemler</label>
+          <app-loading-button btnName="Ekle" [form]="addForm" [isloading]="isloading" btnLoadingName="Ekleniyor..."
+            (click)="createDepartment(addForm.value)"> </app-loading-button>
+        </div>
+        </div>
+        </form>
+        </app-section>
+        <!-- Finish add requests -->
+        <!-- Start read requests -->
+        <app-section sectionTitle="Departman Birimi Listesi">
+          <div class="form-group float-left">
+            <button class="btn btn-outline-success" title="Departmant Ekle" (click)="showAddForm()">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <div class="form-group">
+        
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+            <th>#</th>
+            <th>Id</th>
+            <th>Departman Birimi</th>
+            <th>İşlemler</th>
+            </tr>
+            </thead>
+            <tbody>
+          <tr *ngFor="let department of departments let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ department.id }}</td>
+            <td [innerText]="department.name"></td>
+            <td style="width:120px;">
+              <div>
+                <button class="btn btn-outline-warning btn-sm" title="Güncelle" (click)="get(department)">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm mx-3" title="Sil" (click)="remove(department.id)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       </div>
-      <!-- /.container-fluid -->
-    </section>
+    <div class="pagination">
+      <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)"
+        class="btn btn-info mr-4 mt-3">Önceki</button>
+      <span class="page mt-4" style="color: black; font-weight: bold">{{ currentPage }}</span>
+      <button [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)"
+        class="btn btn-info ml-4 mt-3">Sonraki</button>
+    </div>
   </app-section>
 </app-blank>
-
-
-
-
-<!-- ///Kopyala -->

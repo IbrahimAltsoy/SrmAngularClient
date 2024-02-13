@@ -64,7 +64,7 @@ currentPage = 1;
       }
   async getEmployies(){
 
-    const response = await this.employiesService.read(this.currentPage, this.pageSize);
+    const response = await this.employiesService.read(this.currentPage-1, this.pageSize);
     this.employies = response.employies;
     this.totalItems = response.totalEmployiesCount;
     this.totalPages = Math.ceil(this.totalItems / this.pageSize);
@@ -78,8 +78,6 @@ currentPage = 1;
     createEmployee.email = model.email;
     createEmployee.photoPath = model.photoPath;
     createEmployee.identityNumber = model.identityNumber;
-    // createEmployee.departmentId = departmenId
-
     this.employiesService.create(createEmployee, (result:any)=>{
       this.toastr.toast(ToastrType.Success, "Başarılı", `${model.name} nolu çalışan eklendi`)
     }, (errormessage:any)=>{

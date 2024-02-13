@@ -4,4 +4,5 @@ export class EmployeeUpdateModel{
   email:string="";
   departmentId:string="";
   photoPath:string="";
+  departmentName?:string ="";
 }

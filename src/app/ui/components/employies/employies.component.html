@@ -18,7 +18,7 @@
           <input type="text" class="form-control" #surname name="surname" ngModel [validInput]="surname.validity.valid"
             required minlength="3">
         </div>
-  
+
         <div class="col-md-4">
           <label for="phone">Telefon</label>
           <input type="text" class="form-control" #phone name="phone" ngModel [validInput]="phone.validity.valid" required
@@ -34,7 +34,7 @@
           <input type="text" class="form-control" #photoPath name="photoPath" ngModel
             [validInput]="photoPath.validity.valid" required minlength="3">
         </div>
-  
+
         <div class="col-md-4">
           <label>İşlemler</label>
           <app-loading-button btnName="Ekle" [form]="addForm" [isloading]="isloading" btnLoadingName="Ekleniyor..."
@@ -43,10 +43,10 @@
                                                                                                                                                         <i class="fa fa-plus"></i>
                                                                                                                                                         Şirket Ekle</button> -->
         </div>
-  
+
       </div>
     </form>
-  
+
   </app-section>
   <!-- //Start Update Form -->
   <app-section *ngIf="isUpdateForm" sectionTitle="Şirket Güncelleme">
@@ -80,7 +80,7 @@
         </div>
       </div>
     </form>
-  
+
   </app-section>
   <!-- Finish Added Update Form -->
   <!-- Read Employee Start -->
@@ -120,8 +120,8 @@
             <td [innerText]="employee.name"></td>
             <td [innerText]="employee.surname"></td>
             <td [innerText]="employee.phone"></td>
-            <td [innerText]="employee.email"></td>
-            <td [innerText]="employee.departmentId"></td>
+            <td>{{employee.email.toLowerCase()}}</td>
+            <td [innerText]="employee.departmentName"></td>
             <td>
               <div>
                 <button class="btn btn-outline-warning btn-sm" title="Güncelle" (click)="get(employee)">
