@@ -27,11 +27,14 @@ bootstrapApplication(AppComponent,{
           {path:"departments", loadComponent:()=>import("./app/ui/components/department/department.component").then(c=>c.DepartmentComponent)},
           {path:"requests", loadComponent:()=>import("./app/ui/components/requests/requests.component").then(c=>c.RequestsComponent)},
           {path:"sales", loadComponent:()=>import("./app/ui/components/sales/sales.component").then(c=>c.SalesComponent)},
-          {path:"users", loadComponent:()=>import("./app/ui/components/user/user.component").then(c=>c.UserComponent)}
+          {path:"users", loadComponent:()=>import("./app/ui/components/user/user.component").then(c=>c.UserComponent)},
+
         ]
          },
          {path:"login", loadComponent:()=>import("./app/ui/components/auth/login/login.component").then(c=>c.LoginComponent)},
-         {path:"register", loadComponent:()=>import("./app/ui/components/auth/register/register.component").then(c=>c.RegisterComponent)}
+         {path:"register", loadComponent:()=>import("./app/ui/components/auth/register/register.component").then(c=>c.RegisterComponent)},
+         {path:"updatepassword/:userId/:resetToken", loadComponent:()=>import("./app/ui/components/auth/password-update/password-update.component").then(c=>c.PasswordUpdateComponent)},
+         {path:"resetpassword", loadComponent:()=>import("./app/ui/components/auth/password-reset/password-reset.component").then(c=>c.PasswordResetComponent)}
 
       ])
     )

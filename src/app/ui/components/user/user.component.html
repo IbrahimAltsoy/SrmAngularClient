@@ -1,4 +1,99 @@
-<app-blank>
-  <!-- Start user profile -->
-  <app-section sectionTitle="Kullanıcı Listesi"></app-section>
+<app-blank title="Kullanıcı">
+  <app-section sectionTitle="Kullanıcı güncelle">
+
+    <body class="hold-transition register-page">
+      <div class="register-box">
+        <div class="register-logo">
+          <a routerLink="/login"><b>Srm</b>Client</a>
+        </div>
+
+        <div class="card">
+          <div class="card-body register-card-body">
+            <p class="login-box-msg"> MErhaba {{username}} </p>
+
+            <form #addForm="ngForm">
+              <input type="text" class="form-control" #id name="id" ngModel placeholder="Id">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" #name name="name" ngModel [validInput]="name.validity.valid"
+                  placeholder="Ad" minlength="3" required>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-user"></span>
+                  </div>
+                </div>
+
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Soyad" #surname name="surname" ngModel
+                  [validInput]="surname.validity.valid" required="">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-id-badge"></span>
+                  </div>
+                </div>
+
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Kullanıcı Adı" #userName name="userName" ngModel
+                  [validInput]="userName.validity.valid" required="">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-user-plus"></span>
+                  </div>
+                </div>
+
+              </div>
+              <div class="input-group mb-3">
+                <input type="phone" class="form-control" placeholder="Telefon Numarası" #phoneNumber name="phoneNumber"
+                  ngModel [validInput]="phoneNumber.validity.valid" minlength="10" required>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-phone"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <input type="email" class="form-control" placeholder="Email" #email name="email" ngModel
+                  [validInput]="email.validity.valid" [minlength]="3" required>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group mb-3">
+                <input type="password" class="form-control" placeholder="Şifre" #password name="password" ngModel
+                  [validInput]="password.validity.valid" minlength="6" required>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <input type="password" class="form-control" placeholder="Şifre Tekrar" #passwordConfirm
+                  name="passwordConfirm" ngModel [validInput]="passwordConfirm.validity.valid" minlength="6" required>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+
+
+                <app-loading-button btnName="Güncelle" [form]="addForm" [isloading]=false
+                  btnLoadingName="Kayıt olunuyor..." (click)="update(addForm.value)"
+                  class="btn btn-primary btn-block btn-flat"> </app-loading-button>
+
+              </div>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </body>
+  </app-section>
 </app-blank>

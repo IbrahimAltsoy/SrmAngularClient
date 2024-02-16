@@ -6,6 +6,7 @@ import { SocialUser } from 'angularx-social-login';
 import { Router } from '@angular/router';
 import { RegisterUserModel } from '../register/models/register.user.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -53,14 +54,14 @@ export class UserAuthService {
 
           }
   async passwordReset(email: string, callBack?: () => void) {
-            const observable: Observable<any> = this.httpClient.post({
-              controller: "auth",
-              action: "password-reset"
-            }, { email: email });
+        const observable: Observable<any> = this.httpClient.post({
+        controller: "auth",
+        action: "password-reset"
+       }, { email: email });
 
-            await firstValueFrom(observable);
-            callBack();
-          }
+       await firstValueFrom(observable);
+     callBack();
+    }
   async verifyResetToken(resetToken:string, userId:string, callBack?:()=>void):Promise<boolean>{
     const observable:Observable<any> = await this.httpClient.post({
       controller:"auth",
