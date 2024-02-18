@@ -67,4 +67,11 @@ const observable:Observable<any> = this.httpClient.put({
         },model);
         await firstValueFrom(observable);
       }
+      async updateRequestStatus(model:RequestModel, successCallBack?: () => void):Promise<void>{
+        const observable:Observable<any> = this.httpClient.put({
+          controller:"requests",
+          action:"request-status"
+        },model)
+        await firstValueFrom(observable);
+      }
   }

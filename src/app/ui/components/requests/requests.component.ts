@@ -12,6 +12,7 @@ import { RequestModel } from './models/request.model';
 import { RequestService } from './services/request.service';
 import { ToastrService, ToastrType } from '../../../common/services/toastr.service';
 import { SwalService } from '../../../common/services/swal.service';
+import { mode } from 'crypto-ts';
 
 @Component({
   selector: 'app-requests',
@@ -98,5 +99,9 @@ this.isUpdateForm =false;
     this.getRequests();
 
   }
-
+ async changeStatus(model:RequestModel){
+    await this.requestService.updateRequestStatus(model);
+    this.toastr.toast(ToastrType.Success, "Başarılı", "İsteğin durumu değiştirildi.")
+    this.getRequests();
+  }
 }

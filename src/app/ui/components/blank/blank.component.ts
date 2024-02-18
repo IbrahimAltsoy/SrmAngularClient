@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ToastrService } from '../../../common/services/toastr.service';
+declare var $:any;
 
 @Component({
   selector: 'app-blank',

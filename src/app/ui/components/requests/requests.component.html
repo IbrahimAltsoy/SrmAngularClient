@@ -100,9 +100,9 @@
           <tr>
             <th>#</th>
             <th>Açıklama</th>
-            <th>RequestStatusId</th>
-            <th>EmployeeUserId</th>
-            <th>CustomerUserId</th>
+            <th>İstek Durumu</th>
+            <th>Müsteri Temsilcisi</th>
+            <th>Müsteri</th>
             <!-- <th>x</th>
             <th>x</th> -->
             <th>İşlemler</th>
@@ -113,17 +113,16 @@
           <tr *ngFor="let request of requests | requestPipe:filterText let i = index">
             <td>{{ i + 1 }}</td>
             <td [innerText]="request.description"></td>
-            <td>
-              <div
-                [ngClass]="{'progress-bar': true, 'bg-success': request.requestStatusId === 1, 'bg-danger': request.requestStatusId !== 1}"
-                [style.width.%]="request.requestStatusId === 1 ? 50 : 50">
-                <span class="visually-hidden">{{ request.requestStatusId === 1 ? 'True' : 'False' }}</span>
-              </div>
-            </td>
+
+                  <td>
+                    <button
+                      [ngClass]="{'btn btn-success btn-sm': request.requestStatusId === 1, 'btn btn-warning btn-sm': request.requestStatusId === 0}"
+                      (click)="changeStatus(request)" style="border-radius: 30%;" title="Değiştir">
+                      {{ request.requestStatusId === 1 ? 'True' : 'False' }}
+                    </button>
+                    </td>
             <td [innerText]="request.employeeName"></td>
             <td [innerText]="request.customerName"></td>
-            <!-- <td>{{request.customerUserId}}</td>
-            <td>{{request.employeeUserId}}</td> -->
             <td style="width:120px;">
               <div>
                 <button class="btn btn-outline-warning btn-sm" title="Güncelle" (click)="get(request)">
