@@ -4,6 +4,7 @@ import { ToastrService, ToastrType } from '../../../../common/services/toastr.se
 import { SalesModul } from '../models/sales.modul';
 import { Observable, firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SalePriceModel } from '../models/sale.price.model';
 
 @Injectable({
   providedIn: 'root'
@@ -67,4 +68,13 @@ const observable:Observable<any> = this.httpClient.put({
         },model);
         await firstValueFrom(observable);
       }
+      salePrices: SalePriceModel;
+  async salePriceAmount():Promise<SalePriceModel>{
+    const result =await this.httpClient.get<SalePriceModel>({
+      controller:"sales",
+      action:"sale-price"
+    }).toPromise();
+  this.salePrices = result
+    return this.salePrices;
+  }
   }

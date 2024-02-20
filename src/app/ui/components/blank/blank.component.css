@@ -1,0 +1,10 @@
+.row {
+  display: flex;
+}
+
+.vertical-line {
+  border-right: 1px solid #000;
+  /* Çizgi rengi ve kalınlığı buradan ayarlanabilir */
+  margin: 0 10px;
+  /* İki sütun arasındaki boşluk için */
+}

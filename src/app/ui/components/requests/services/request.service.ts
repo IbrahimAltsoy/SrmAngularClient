@@ -4,6 +4,7 @@ import { ToastrService, ToastrType } from '../../../../common/services/toastr.se
 import { RequestModel } from '../models/request.model';
 import { Observable, firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RequestStatuModel } from '../models/request.statu.model';
 
 @Injectable({
   providedIn: 'root'
@@ -74,4 +75,13 @@ const observable:Observable<any> = this.httpClient.put({
         },model)
         await firstValueFrom(observable);
       }
+      requestStatu: RequestStatuModel;
+  async employeeDepartment():Promise<RequestStatuModel>{
+    const result =await this.httpClient.get<RequestStatuModel>({
+      controller:"requests",
+      action:"request-status-count"
+    }).toPromise();
+  this.requestStatu = result
+    return this.requestStatu;
+  }
   }

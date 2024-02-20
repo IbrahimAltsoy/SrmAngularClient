@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Blank Page</h1>
+          <h1 style=" position: absolute;left: 30%;">İstatiksel Sayfamıza Hoşgeldiniz</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -21,7 +21,7 @@
 
     <!-- Default box -->
     <div class="card">
-      <div class="card-header">
+      <!-- <div class="card-header">
         <h3 class="card-title">Title</h3>
 
         <div class="card-tools">
@@ -32,63 +32,36 @@
             <i class="fas fa-times"></i>
           </button>
         </div>
-      </div>
+      </div> -->
       <div class="card-body">
-<!-- /// Chart Start -->
-<!-- Start creating your amazing application!Merhaba -->
-<div class="card card-danger">
-  <div class="card-header">
-    <h3 class="card-title">Donut Chart İşlemleri</h3>
-
-    <div class="card-tools">
-      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-        <i class="fas fa-minus"></i>
-      </button>
-      <button type="button" class="btn btn-tool" data-card-widget="remove">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
+        <!-- Start creating your amazing application! -->
+        <div class="row">
+          <div class="col-3">
+            <p>Ortalama Fiyat Aralığı</p><app-polar-chart></app-polar-chart>
           </div>
-          <div class="card-body">
-            <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+          <div class="col-1 vertical-line"></div>
+          <div class="col-3">
+            <p>Departman Bölümleri</p><app-pie-chart></app-pie-chart>
           </div>
+          <div class="col-1 vertical-line"></div>
+          <div class="col-3">
+            <p>İsteklerin Durumu</p><app-bar-chart></app-bar-chart>
           </div>
-          <!-- /// Chart End -->
-          </div>
+          <div class="col-1 vertical-line"></div>
+        </div>
+<div class="row">
+  <div class="col-6"></div>
+  <div class="col-6"> </div>
+</div>
+</div>
+<!-- /.card-body -->
       <div class="card-footer">
         Footer
       </div>
+      <!-- /.card-footer-->
     </div>
+    <!-- /.card -->
+
   </section>
-
+  <!-- /.content -->
 </div>
-
-<!-- Chart için Eklenen Alanlar -->
-<script>
-  $(function () {
-    var donutChartCanvas = $('#donutChart').get(0).getContext('2d');
-    var donutData = {
-      labels: [
-        'Chrome',
-        'IE',
-        'FireFox',
-        'Safari',
-        'Opera',
-        'Navigator',
-      ],
-      datasets: [
-        {
-          data: [700, 500, 400, 600, 300, 100],
-          backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }
-      ]
-    }
-    var donutOptions = {
-      maintainAspectRatio: false,
-      responsive: true,
-    }
-
-
-  }
-  )
-</script>

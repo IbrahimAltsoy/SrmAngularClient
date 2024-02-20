@@ -5,6 +5,7 @@ import { EmployiesModel } from '../models/employies.model';
 import { Observable, firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EmployeeUpdateModel } from '../models/employee.update.model';
+import { EmployeeDepartmentModel } from '../models/employee.department.model';
 
 @Injectable({
   providedIn: 'root'
@@ -61,9 +62,19 @@ create(employee: EmployiesModel, successCallBack?: (result:any) => void, errorCa
 }
 async update(model: EmployeeUpdateModel, successCallBack?: () => void):Promise<void> {
   const observable:Observable<any> = this.httpClient.put({
-            controller: "employies"
-          },model);
-          await firstValueFrom(observable);
-        }
+    controller: "employies"
+   },model);
+   await firstValueFrom(observable);
+  }
+  departments: EmployeeDepartmentModel;
+  async employeeDepartment():Promise<EmployeeDepartmentModel>{
+    const result =await this.httpClient.get<EmployeeDepartmentModel>({
+      controller:"employies",
+      action:"employee-department-count"
+    }).toPromise();
+  this.departments = result
+    return this.departments;
+  }
+
 }
 

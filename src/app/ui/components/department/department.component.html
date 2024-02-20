@@ -10,18 +10,18 @@
           <input type="text" class="form-control" #name name="name" [(ngModel)]="updateDepartment.name"
             [validInput]="name.validity.valid" required minlength="6">
         </div>
-        
+
         <div class="col-md-4">
           <label>İşlemler</label>
           <app-loading-button btnName="Güncelle" [form]="isUpdateForm" [isloading]="isloading" btnLoadingName="Güncelleniyor..."
             (click)="update(isUpdateForm.value)"> </app-loading-button>
         </div>
-        
+
         </div>
         </form>
-        
+
         </app-section>
-        
+
         <app-section *ngIf="isAddForm" sectionTitle="Departman Ekle">
           <form #addForm="ngForm">
             <div class="row">
@@ -47,12 +47,11 @@
             </button>
           </div>
           <div class="form-group">
-        
+
             <table class="table table-bordered">
               <thead>
                 <tr>
             <th>#</th>
-            <th>Id</th>
             <th>Departman Birimi</th>
             <th>İşlemler</th>
             </tr>
@@ -60,7 +59,6 @@
             <tbody>
           <tr *ngFor="let department of departments let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{ department.id }}</td>
             <td [innerText]="department.name"></td>
             <td style="width:120px;">
               <div>

@@ -34,7 +34,8 @@ bootstrapApplication(AppComponent,{
          {path:"login", loadComponent:()=>import("./app/ui/components/auth/login/login.component").then(c=>c.LoginComponent)},
          {path:"register", loadComponent:()=>import("./app/ui/components/auth/register/register.component").then(c=>c.RegisterComponent)},
          {path:"updatepassword/:userId/:resetToken", loadComponent:()=>import("./app/ui/components/auth/password-update/password-update.component").then(c=>c.PasswordUpdateComponent)},
-         {path:"resetpassword", loadComponent:()=>import("./app/ui/components/auth/password-reset/password-reset.component").then(c=>c.PasswordResetComponent)}
+         {path:"resetpassword", loadComponent:()=>import("./app/ui/components/auth/password-reset/password-reset.component").then(c=>c.PasswordResetComponent)},
+         {path:"charts", loadComponent:()=>import("./app/ui/components/charts/charts.component").then(c=>c.ChartsComponent)}
 
       ])
     )
